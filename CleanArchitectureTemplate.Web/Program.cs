@@ -1,3 +1,6 @@
+using CleanArchitectureTemplate.Application.UseCases;
+using CleanArchitectureTemplate.Domain.Interfaces;
+using CleanArchitectureTemplate.Infraestructure.Repositories;
 using CleanArchitectureTemplate.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +16,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+
+//Registrar las dependencias de la capa de infraestructura y dominio
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+
+//Registrar las dependencias de la capa de aplicación
+builder.Services.AddScoped<ProductoService>();
 
 var app = builder.Build();
 
